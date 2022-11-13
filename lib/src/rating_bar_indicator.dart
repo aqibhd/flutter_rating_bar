@@ -12,6 +12,7 @@ class RatingBarIndicator extends StatefulWidget {
     required this.itemBuilder,
     this.textDirection,
     this.unratedColor,
+    this.unratedWidget,
     this.direction = Axis.horizontal,
     this.itemCount = 5,
     this.itemPadding = EdgeInsets.zero,
@@ -45,6 +46,9 @@ class RatingBarIndicator extends StatefulWidget {
   ///
   /// Default is [NeverScrollableScrollPhysics].
   final ScrollPhysics physics;
+
+  ///Defines the unrated widget
+  final Widget? unratedWidget;
 
   /// Defines the rating value for indicator.
   ///
@@ -127,7 +131,8 @@ class _RatingBarIndicatorState extends State<RatingBarIndicator> {
                         widget.unratedColor ?? Theme.of(context).disabledColor,
                         BlendMode.srcIn,
                       ),
-                      child: widget.itemBuilder(context, index),
+                      child: widget.unratedWidget ??
+                          widget.itemBuilder(context, index),
                     ),
             ),
             if (index + 1 == _ratingNumber)
